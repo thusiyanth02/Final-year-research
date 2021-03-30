@@ -1,0 +1,115 @@
+<head>
+<meta charset="utf-8">
+<title>Simple speech input for inputs and textareas</title>
+<meta name="viewport" content="width=540">
+<link rel="stylesheet" href="speech-input.css">
+<link rel="stylesheet" href="demo.css">
+<!----------image headers---------------------->
+<link class="jsbin" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<script class="jsbin" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.min.js"></script>
+
+</head>
+<style>
+.main img {
+	max-width: 100%;
+	height: auto;
+}
+.button {
+  width: 300px;
+  height: 60px;
+}
+</style>
+
+<body>
+
+
+<button type="button" onclick="zoomin()"> Zoom In</button>
+<button type="button" onclick="zoomout()"> Zoom Out</button>
+
+ 
+
+<h2>Single-line input</h2>
+<input type="text" id="speechResult" class="speech-input" placeholder="What's up?" readonly>
+
+
+<div class="main">
+ <input type='file' onchange="readURL(this);" />
+    <img id="map" src="#" alt="your image" />
+</div>
+https://www.kaggle.com/ruslankl/brain-tumor-detection-v2-0-mask-r-cnn#3.-Mask-R-CNN-Model
+https://www.kaggle.com/ruslankl/brain-tumor-detection-v2-0-mask-r-cnn/output
+https://www.kaggle.com/gaborfodor/keras-pretrained-models/downloads/inception_resnet_v2_weights_tf_dim_ordering_tf_kernels.h5/11
+
+<script src="speech-input.js"></script>
+
+<script>
+window.addEventListener("load", function(){
+
+	document.getElementById("speechResult").addEventListener("focus", makeDecision);
+
+
+
+});
+
+function makeDecision(event){
+	var text = event.target.value;
+
+	if(text == "zoom"){
+		zoomout();
+	}
+	if(text=="zoomin")
+	{
+	zoomin();
+	}
+	if(text=="good")
+	{
+	 rotate90() ;
+	}
+	
+}
+function zoomin(){
+	var myImg = document.getElementById("map");
+	var currWidth = myImg.clientWidth;
+	if(currWidth == 2500) return false;
+	 else{
+		myImg.style.width = (currWidth + 100) + "px";
+	} 
+}
+function zoomout(){
+	var myImg = document.getElementById("map");
+	var currWidth = myImg.clientWidth;
+	if(currWidth == 100) return false;
+	 else{
+		myImg.style.width = (currWidth - 100) + "px";
+	}
+}
+ function rotate180() {
+        var img = document.getElementById('map');
+        img.style.transform = 'rotate(180deg)';
+    }
+ function rotate90() {
+        var img = document.getElementById('map');
+        img.style.transform = 'rotate(90deg)';
+    }
+ function rotate120() {
+        var img = document.getElementById('map');
+        img.style.transform = 'rotate(120deg)';
+    }	
+	
+	
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#map')
+                    .attr('src', e.target.result)
+                    .width(150)
+                    .height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+</script>
